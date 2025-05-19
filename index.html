@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Developer Portfolio</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/app.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+<div id="app">Loading...</div>
+<script src="_framework/blazor.webassembly.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        if (hamburger && mobileMenu) {
+            console.log("Hamburger and menu found"); // Debugging
+            hamburger.addEventListener("click", function () {
+                console.log("Hamburger clicked"); // Debugging
+                mobileMenu.classList.toggle("hidden");
+            });
+
+            // Touch event for mobile compatibility
+            hamburger.addEventListener("touchstart", function (e) {
+                e.preventDefault();
+                console.log("Hamburger touched"); // Debugging
+                mobileMenu.classList.toggle("hidden");
+            }, { passive: false });
+
+            // Close mobile menu on link click/touch
+            mobileMenu.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", () => {
+                    mobileMenu.classList.add("hidden");
+                });
+                link.addEventListener("touchstart", () => {
+                    mobileMenu.classList.add("hidden");
+                });
+            });
+        } else {
+            console.log("Hamburger or menu not found"); // Debugging
+        }
+    });
+</script>
+</body>
+</html>
