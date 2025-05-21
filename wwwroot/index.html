@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio</title>
+    <title>Baha's Portfolio</title>
     <base href="/" />
     <link rel="stylesheet" href="css/app.css" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,35 +12,66 @@
 <div id="app">Loading...</div>
 <script src="_framework/blazor.webassembly.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const hamburger = document.getElementById("hamburger");
+    // Function to initialize menu functionality
+    function initializeMenu() {
+        const menuButton = document.getElementById("menu-button");
         const mobileMenu = document.getElementById("mobile-menu");
 
-        if (hamburger && mobileMenu) {
-            console.log("Hamburger and menu found"); // Debugging
-            hamburger.addEventListener("click", function () {
-                console.log("Hamburger clicked"); // Debugging
-                mobileMenu.classList.toggle("hidden");
+        if (menuButton && mobileMenu) {
+            console.log("Menu button and mobile menu found, initializing...");
+            menuButton.addEventListener("click", function (e) {
+                e.preventDefault();
+                console.log("Menu button clicked");
+                mobileMenu.classList.toggle("translate-x-full");
+                mobileMenu.classList.toggle("translate-x-0");
             });
 
-            // Touch event for mobile compatibility
-            hamburger.addEventListener("touchstart", function (e) {
+            menuButton.addEventListener("touchstart", function (e) {
                 e.preventDefault();
-                console.log("Hamburger touched"); // Debugging
-                mobileMenu.classList.toggle("hidden");
+                console.log("Menu button touched");
+                mobileMenu.classList.toggle("translate-x-full");
+                mobileMenu.classList.toggle("translate-x-0");
             }, { passive: false });
 
-            // Close mobile menu on link click/touch
             mobileMenu.querySelectorAll("a").forEach(link => {
                 link.addEventListener("click", () => {
-                    mobileMenu.classList.add("hidden");
+                    console.log("Menu link clicked");
+                    mobileMenu.classList.add("translate-x-full");
+                    mobileMenu.classList.remove("translate-x-0");
                 });
                 link.addEventListener("touchstart", () => {
-                    mobileMenu.classList.add("hidden");
-                });
+                    console.log("Menu link touched");
+                    mobileMenu.classList.add("translate-x-full");
+                    mobileMenu.classList.remove("translate-x-0");
+                }, { passive: false });
             });
+            return true; // Success
         } else {
-            console.log("Hamburger or menu not found"); // Debugging
+            console.error("Failed to find elements:", {
+                menuButton: !!menuButton,
+                mobileMenu: !!mobileMenu
+            });
+            return false;
+        }
+    }
+
+    // Wait for Blazor to initialize and retry if needed
+    window.addEventListener("load", function () {
+        console.log("Window loaded, attempting to initialize menu...");
+        if (!initializeMenu()) {
+            // Retry every 500ms up to 5 times
+            let attempts = 0;
+            const maxAttempts = 5;
+            const retryInterval = setInterval(() => {
+                attempts++;
+                console.log(`Retry attempt ${attempts}...`);
+                if (initializeMenu() || attempts >= maxAttempts) {
+                    clearInterval(retryInterval);
+                    if (attempts >= maxAttempts) {
+                        console.error("Failed to initialize menu after", maxAttempts, "attempts. Check if 'menu-button' and 'mobile-menu' IDs exist in the DOM.");
+                    }
+                }
+            }, 500);
         }
     });
 </script>
