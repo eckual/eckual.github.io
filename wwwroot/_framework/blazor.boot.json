@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "GameDevPortfolio",
   "resources": {
-    "hash": "sha256-fkjE9Y2f4uaR4CKdgtJ+KPXSKvOOuX2x1jbaB7nM0Vc=",
+    "hash": "sha256-5lx9yzGm/912HWlzqF/WqZG6ikAz/PIpjxT+seTzQu8=",
     "jsModuleNative": {
       "dotnet.native.8.0.16.zf8chvodnr.js": "sha256-t3uBkdgrlRHXCn3sRQbc0WlUfvqXQUc3nJJgidY+T9Q="
     },
@@ -17,7 +17,7 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
-      "GameDevPortfolio.wasm": "sha256-OuTStvA9jEO85XTkbQVjkMGTvsRu0GzsSdzQWB7Kjg8=",
+      "GameDevPortfolio.wasm": "sha256-yR+siehblxnmfuxkgCX0206EZqE19sPAtrqcAg8mSSI=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-Ayj5JyeuAoso8L7r1ldTn2qWpq+AIP5hQhF0BuqUmVg=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-wNzOc1Fp3eB6cbo3Y/KMbXTmgWox24TJkIlwPnj4Nzs=",
       "Microsoft.AspNetCore.Components.WebAssembly.wasm": "sha256-H7ZmBxfEbeW66OOOzZWirbt0JjQ7NwmbEqDb9onTl2E=",
