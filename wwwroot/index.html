@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baha's Portfolio</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/app.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-900 text-white">
+<div id="app">Loading...</div>
+<script src="_framework/blazor.webassembly.js"></script>
+<script>
+    // Function to initialize menu functionality
+    function initializeMenu() {
+        const menuButton = document.getElementById("menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        if (menuButton && mobileMenu) {
+            console.log("Menu button and mobile menu found, initializing...");
+            menuButton.addEventListener("click", function (e) {
+                e.preventDefault();
+                console.log("Menu button clicked");
+                mobileMenu.classList.toggle("translate-x-full");
+                mobileMenu.classList.toggle("translate-x-0");
+            });
+
+            menuButton.addEventListener("touchstart", function (e) {
+                e.preventDefault();
+                console.log("Menu button touched");
+                mobileMenu.classList.toggle("translate-x-full");
+                mobileMenu.classList.toggle("translate-x-0");
+            }, { passive: false });
+
+            mobileMenu.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", () => {
+                    console.log("Menu link clicked");
+                    mobileMenu.classList.add("translate-x-full");
+                    mobileMenu.classList.remove("translate-x-0");
+                });
+                link.addEventListener("touchstart", () => {
+                    console.log("Menu link touched");
+                    mobileMenu.classList.add("translate-x-full");
+                    mobileMenu.classList.remove("translate-x-0");
+                }, { passive: false });
+            });
+            return true; // Success
+        } else {
+            console.error("Failed to find elements:", {
+                menuButton: !!menuButton,
+                mobileMenu: !!mobileMenu
+            });
+            return false;
+        }
+    }
+
+    // Wait for Blazor to initialize and retry if needed
+    window.addEventListener("load", function () {
+        console.log("Window loaded, attempting to initialize menu...");
+        if (!initializeMenu()) {
+            // Retry every 500ms up to 5 times
+            let attempts = 0;
+            const maxAttempts = 5;
+            const retryInterval = setInterval(() => {
+                attempts++;
+                console.log(`Retry attempt ${attempts}...`);
+                if (initializeMenu() || attempts >= maxAttempts) {
+                    clearInterval(retryInterval);
+                    if (attempts >= maxAttempts) {
+                        console.error("Failed to initialize menu after", maxAttempts, "attempts. Check if 'menu-button' and 'mobile-menu' IDs exist in the DOM.");
+                    }
+                }
+            }, 500);
+        }
+    });
+</script>
+</body>
+</html>
